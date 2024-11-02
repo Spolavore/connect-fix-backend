@@ -5,11 +5,10 @@ const { Client } = pkg;
 dotenv.config()
 // Configurações de conexão com o PostgreSQL
 const db = new Client({
-  user: process.env.DB_USER,     
-  host: process.env.DB_HOST,       
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,  
-  port: 5432,              
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false // Certifique-se de definir isso se o Railway exigir SSL
+  }
 });
 
 // Conectar ao banco de dados

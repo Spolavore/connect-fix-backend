@@ -18,6 +18,7 @@ app.use(morgan('dev'));
 
 // Rotas
 app.get('/leonardo', testeController.exemploGet)
+
 app.post('/usuario', usuario.criarUsuario)
 app.get('/usuario', usuario.buscarUsuarios)
 app.get('/usuario/:email', usuario.buscarUsuarioPorEmail)

@@ -22,6 +22,12 @@ const buscarUsuarioPorEmail = async (email) => {
     return dbResponse.rows[0];
 }
 
+const testeRailway = async() => {
+    const query = 'select * from teste'
+    const dbResponse = await db.query(query);
+    return dbResponse.rows[0];
+}
+
 export default {
-    criarUsuario, buscarUsuarios, buscarUsuarioPorEmail
+    criarUsuario, buscarUsuarios, buscarUsuarioPorEmail, testeRailway
 }
