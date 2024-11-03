@@ -1,16 +1,16 @@
-import usuarioService from "../services/usuario.service.js";
+import solicitadorService from "../services/solicitador.service.js";
 import httpStatus from "../utils/constants.js";
 
-const criarUsuario = async (req,res) => {
+const criar = async (req,res) => {
     const cpf = req.body.cpf;
-    const nome = req.body.nome;
     const email = req.body.email;
+    const nome = req.body.nome; 
     const senha = req.body.senha;
 
-    if(!cpf || !nome || !email || !senha) return res.status(httpStatus.BAD_REQUEST).send('Falta parâmetros no corpo da requisição');
+    if(!cpf || !email || !nome || !senha ) return res.status(httpStatus.BAD_REQUEST).send('Falta parâmetros no corpo da requisição');
 
     try {
-        await usuarioService.criarUsuario(cpf, nome, email, senha);
+        await solicitadorService.criar(cpf, nome, email, senha);
         return res.sendStatus(httpStatus.NO_CONTENT);
     } catch (error) {
         console.error(error);
@@ -18,9 +18,9 @@ const criarUsuario = async (req,res) => {
     }
 };
 
-const buscarUsuarios = async (req, res) => {
+const buscar = async (req, res) => {
     try {
-        const usuarios = await usuarioService.buscarUsuarios();
+        const usuarios = await solicitadorService.buscar();
         return res.send(usuarios).status(httpStatus.SUCCESS)
     } catch (error) {
         console.error(error);
@@ -28,10 +28,10 @@ const buscarUsuarios = async (req, res) => {
     }
 }
 
-const buscarUsuarioPorEmail = async (req, res) => {
+const buscarPorEmail = async (req, res) => {
     try {
         const email = req.params.email
-        const usuarios = await usuarioService.buscarUsuarioPorEmail(email);
+        const usuarios = await solicitadorService.buscarPorEmail(email);
         return res.send(usuarios).status(httpStatus.SUCCESS)
     } catch (error) {
         console.error(error);
@@ -40,5 +40,7 @@ const buscarUsuarioPorEmail = async (req, res) => {
 }
 
 export default {
-    criarUsuario, buscarUsuarios, buscarUsuarioPorEmail
+    criar,
+    buscar,
+    buscarPorEmail,
 }

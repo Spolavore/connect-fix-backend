@@ -3,9 +3,11 @@ import cors from 'cors'
 import 'dotenv/config'
 import express from 'express'
 import dotenv from 'dotenv'
+
 // Controllers
-import testeController from './controllers/testeController.js'
-import usuario from './controllers/user.controller.js'
+import prestador from './controllers/prestador.controller.js'
+import solicitador from "./controllers/solicitador.controller.js"
+
 
 dotenv.config()
 const app = express();
@@ -15,13 +17,15 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
 
+// Provedor
+app.post('/prestador', prestador.criar)
+app.get('/prestador', prestador.buscar)
+app.get('/prestador/:email', prestador.buscarPorEmail)
 
-// Rotas
-app.get('/leonardo', testeController.exemploGet)
-
-app.post('/usuario', usuario.criarUsuario)
-app.get('/usuario', usuario.buscarUsuarios)
-app.get('/usuario/:email', usuario.buscarUsuarioPorEmail)
+// Solicitador
+app.post('/solicitador', solicitador.criar)
+app.get('/solicitador', solicitador.buscar)
+app.get('/solicitador/:email', solicitador.buscarPorEmail)
 
 app.listen(porta, () => {
     console.log(`Aplicação rodando na porta ${porta}`)
