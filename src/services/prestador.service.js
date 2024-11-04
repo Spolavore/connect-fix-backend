@@ -6,9 +6,8 @@ const criar = async (cpf, nome, email, senha, profissao, cep, cidade,estado) => 
         const senhaMD5 = createHash('md5').update(senha).digest('hex');
         return await queries.criar(cpf, nome, email, senhaMD5, profissao, cep, cidade, estado);
       } catch (err) {
-        console.error(err);
+        throw err;
     }
-    return;
 }
 
 const buscar = async () => {
@@ -28,5 +27,13 @@ const buscarPorEmail = async (email) => {
     }
     return;
 }
+const buscarPorCPF = async (cpf) => {
+  try {
+      return await queries.buscarPorCPF(cpf);
+    } catch (err) {
+      console.error(err);
+  }
+  return;
+}
 
-export default  { criar, buscar, buscarPorEmail };
+export default  { criar, buscar, buscarPorEmail,buscarPorCPF };

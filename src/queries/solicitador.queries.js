@@ -20,7 +20,13 @@ const buscarPorEmail = async (email) => {
     const dbResponse = await db.query(query,params);
     return dbResponse.rows[0];
 }
+const buscarPorCPF = async (cpf) =>{
+    const query = `select * from prestador where cpf = $1;`
+    const params = [cpf]
+    const dbResponse = await db.query(query,params)
+    return dbResponse.rows[0]
+}
 
 export default {
-    criar, buscar, buscarPorEmail
+    criar, buscar, buscarPorEmail, buscarPorCPF
 }

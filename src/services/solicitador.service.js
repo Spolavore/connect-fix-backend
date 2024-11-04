@@ -1,3 +1,4 @@
+import { error } from "console";
 import queries from "../queries/solicitador.queries.js"
 import { createHash } from "crypto";
 
@@ -6,7 +7,7 @@ const criar = async (cpf, nome, email, senha) => {
         const senhaMD5 = createHash('md5').update(senha).digest('hex');
         return await queries.criar(cpf, nome, email, senhaMD5); // Exemplo de consultaDS
       } catch (err) {
-        console.error(err);
+        throw err;
     }
     return;
 }
@@ -28,5 +29,13 @@ const buscarPorEmail = async (email) => {
     }
     return;
 }
+const buscarPorCPF = async (cpf) => {
+  try {
+      return await queries.buscarPorCPF(cpf);
+    } catch (err) {
+      console.error(err);
+  }
+  return;
+}
 
-export default  { criar, buscar, buscarPorEmail };
+export default  { criar, buscar, buscarPorEmail, buscarPorCPF };

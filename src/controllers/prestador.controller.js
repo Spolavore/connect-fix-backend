@@ -15,11 +15,13 @@ const criar = async (req,res) => {
 
     try {
         await prestadorService.criar(cpf, nome, email, senha, profissao, cep, cidade, estado);
-        return res.sendStatus(httpStatus.NO_CONTENT);
+        return res.sendStatus(httpStatus.SUCCESS);
+        
     } catch (error) {
         console.error(error);
         return res.sendStatus(httpStatus.BAD_REQUEST);
     }
+    
 };
 
 const buscar = async (req, res) => {
@@ -42,9 +44,20 @@ const buscarPorEmail = async (req, res) => {
         return res.sendStatus(httpStatus.BAD_REQUEST);
     }
 }
+const buscarPorCPF = async (req, res) => {
+    try {
+        const cpf = req.params.cpf
+        const usuarios = await pService.buscarPorCPF(cpf);
+        return res.send(usuarios).status(httpStatus.SUCCESS)
+    } catch (error) {
+        console.error(error);
+        return res.sendStatus(httpStatus.BAD_REQUEST);
+    }
+}
 
 export default{
     criar,
     buscar, 
     buscarPorEmail,
+    buscarPorCPF
 }
