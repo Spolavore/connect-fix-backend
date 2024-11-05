@@ -15,7 +15,7 @@ const buscar = async () => {
 }
 
 const buscarPorEmail = async (email) => {
-    const query = `select * from prestadores where email = $1;`; 
+    const query = `select * from prestador where email = $1;`; 
     const params = [email];   
     const dbResponse = await db.query(query,params);
     return dbResponse.rows[0];

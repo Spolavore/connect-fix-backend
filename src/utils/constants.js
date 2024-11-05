@@ -3,6 +3,7 @@ const httpStatus = {
     UNAUTHORIZED: 401,
     SUCCESS: 200,
     NO_CONTENT: 204,
+    INTERNAL_ERROR: 500
 }
 
 
