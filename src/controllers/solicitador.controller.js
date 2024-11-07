@@ -39,8 +39,20 @@ const buscarPorEmail = async (req, res) => {
     }
 }
 
+const buscarPorCPF = async (req, res) => {
+    try {
+        const cpf = req.params.cpf
+        const usuarios = await solicitadorService.buscarPorCPF(cpf);
+        return res.send(usuarios).status(httpStatus.SUCCESS)
+    } catch (error) {
+        console.error(error);
+        return res.sendStatus(httpStatus.BAD_REQUEST);
+    }
+}
+
 export default {
     criar,
     buscar,
     buscarPorEmail,
+    buscarPorCPF
 }

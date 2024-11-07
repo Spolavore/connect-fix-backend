@@ -4,8 +4,14 @@ const criar = async (cpf, nome, email, senha, profissao, cep, cidade, estado) =>
     const query = `INSERT INTO prestador (cpf, nome, email, senha, profissao, cep, cidade, estado)
                   values ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;    
     const params = [cpf, nome, email, senha, profissao, cep, cidade, estado];
-    const dbResponse = await db.query(query,params);
-    return dbResponse.rows[0];
+    try {
+        const dbResponse = await db.query(query,params);
+        return dbResponse.rows[0];
+    } catch (error) {
+        throw new Error("Erro na Inserção")
+    }
+    
+    
 }
 
 const buscar = async () => {
@@ -21,6 +27,13 @@ const buscarPorEmail = async (email) => {
     return dbResponse.rows[0];
 }
 
+const buscarPorCPF = async (cpf) =>{
+    const query = `select * from prestador where cpf = $1;`
+    const params = [cpf]
+    const dbResponse = await db.query(query,params)
+    return dbResponse.rows[0]
+}
+
 export default {
-    criar, buscar, buscarPorEmail
+    criar, buscar, buscarPorEmail,buscarPorCPF
 }
