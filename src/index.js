@@ -9,6 +9,7 @@ import prestador from './controllers/prestador.controller.js'
 import solicitador from "./controllers/solicitador.controller.js"
 import servico from './controllers/servico.controller.js'
 import auth from './controllers/auth.controller.js'
+import agendamento from './controllers/agendamento.controller.js'
 
 dotenv.config()
 const app = express();
@@ -37,6 +38,9 @@ app.get('/servico/:id', servico.buscarUm)
 app.post('/servico', servico.criar)
 app.put('/servico/:id', servico.editar)
 app.get('/servico/:profissao', servico.buscarPorProfissao)
+
+// Agendamento
+app.post('/agendamento', agendamento.criar)
 
 // Login
 app.post('/login', auth.login)
