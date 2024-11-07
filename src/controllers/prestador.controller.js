@@ -55,9 +55,15 @@ const buscarPorCPF = async (req, res) => {
     }
 }
 
-export default{
-    criar,
-    buscar, 
-    buscarPorEmail,
-    buscarPorCPF
+const buscarDatasOcupadas = async (req, res) => {
+    try {
+        const id = req.params.id
+        const datas = await prestadorService.buscarDatasOcupadas(id);
+        return res.send(datas).status(httpStatus.SUCCESS)
+    } catch (error) {
+        console.error(error);
+        return res.sendStatus(httpStatus.BAD_REQUEST);
+    }
 }
+
+export default { criar, buscar, buscarPorEmail, buscarPorCPF, buscarDatasOcupadas };

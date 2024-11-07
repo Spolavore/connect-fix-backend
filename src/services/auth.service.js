@@ -2,7 +2,8 @@ import queriesPrestador from "../queries/prestador.queries.js"
 import queriesSolicitador from "../queries/solicitador.queries.js"
 
 import jwt from "jsonwebtoken"
-const realizarLogin = async (email,senha,ehPrestador) => {
+
+const realizarLogin = async (email, senha, ehPrestador) => {
     try {
         if(ehPrestador){
             return await login(email, senha, 'prestador');
@@ -37,6 +38,4 @@ const criarUserToken = (data) => {
     return token;
 }
 
-export default {
-    realizarLogin
-}
+export default { realizarLogin };

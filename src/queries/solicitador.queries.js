@@ -32,6 +32,4 @@ const buscarPorCPF = async (cpf) =>{
     return dbResponse.rows[0]
 }
 
-export default {
-    criar, buscar, buscarPorEmail, buscarPorCPF
-}
+export default { criar, buscar, buscarPorEmail, buscarPorCPF };

@@ -1,5 +1,6 @@
-import queries from "../queries/prestador.queries.js"
 import { createHash } from "crypto";
+
+import queries from "../queries/prestador.queries.js"
 
 const criar = async (cpf, nome, email, senha, profissao, cep, cidade,estado) => {
     try {
@@ -16,7 +17,6 @@ const buscar = async () => {
       } catch (err) {
         console.error(err);
     }
-    return;
 }
 
 const buscarPorEmail = async (email) => {
@@ -25,7 +25,6 @@ const buscarPorEmail = async (email) => {
       } catch (err) {
         console.error(err);
     }
-    return;
 }
 const buscarPorCPF = async (cpf) => {
   try {
@@ -33,7 +32,14 @@ const buscarPorCPF = async (cpf) => {
     } catch (err) {
       console.error(err);
   }
-  return;
 }
 
-export default  { criar, buscar, buscarPorEmail,buscarPorCPF };
+const buscarDatasOcupadas = async (id) => {
+  try {
+      return await queries.buscarDatasOcupadas(id);
+    } catch (err) {
+      console.error(err);
+  }
+}
+
+export default  { criar, buscar, buscarPorEmail,buscarPorCPF, buscarDatasOcupadas };

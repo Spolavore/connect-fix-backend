@@ -50,9 +50,4 @@ const buscarPorCPF = async (req, res) => {
     }
 }
 
-export default {
-    criar,
-    buscar,
-    buscarPorEmail,
-    buscarPorCPF
-}
+export default { criar, buscar, buscarPorEmail, buscarPorCPF };
