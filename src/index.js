@@ -33,6 +33,9 @@ app.get('/solicitador/:cpf', solicitador.buscarPorCPF)
 
 // Servico
 app.get('/servico', servico.buscar)
+app.get('/servico/:id', servico.buscarUm)
+app.post('/servico', servico.criar)
+app.put('/servico/:id', servico.editar)
 app.get('/servico/:profissao', servico.buscarPorProfissao)
 
 // Login

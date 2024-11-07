@@ -6,6 +6,25 @@ const buscar = async () => {
   return dbResponse.rows;
 }
 
+const buscarUm = async (id) => {
+  const query = `select * from servico where id = $1;`;
+  const params = [id];
+  const dbResponse = await db.query(query, params);
+  return dbResponse.rows[0];
+}
+
+const criar = async (titulo, descricao, prestador_id) => {
+  const query = `insert into servico (titulo, descricao, prestador_id) values ($1, $2, $3);`;
+  const params = [titulo, descricao, prestador_id];
+  await db.query(query, params);
+}
+
+const editar = async (id, titulo, descricao, prestador_id) => {
+  const query = `update servico set titulo = $2, descricao = $3, prestador_id = $4 where id = $1;`;
+  const params = [id, titulo, descricao, prestador_id];
+  await db.query(query, params);
+}
+
 const buscarPorProfissao = async (profissao) => {
   const query = `
     SELECT 
@@ -36,4 +55,4 @@ const buscarPorProfissao = async (profissao) => {
   }));
 }
 
-export default { buscar, buscarPorProfissao };
+export default { buscar, buscarUm, criar, editar, buscarPorProfissao };

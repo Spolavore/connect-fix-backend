@@ -8,6 +8,30 @@ const buscar = async () => {
   }
 }
 
+const buscarUm = async (id) => {
+  try {
+    return await queries.buscarUm(id);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+const criar = async (titulo, descricao, prestador_id) => {
+  try {
+    return await queries.criar(titulo, descricao, prestador_id);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+const editar = async (id, titulo, descricao, prestador_id) => {
+  try {
+    return await queries.editar(id, titulo, descricao, prestador_id);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 const buscarPorProfissao = async (profissao) => {
   try {
     return await queries.buscarPorProfissao(profissao);
@@ -16,4 +40,4 @@ const buscarPorProfissao = async (profissao) => {
   }
 }
 
-export default { buscar, buscarPorProfissao };
+export default { buscar, buscarUm, criar, editar, buscarPorProfissao };
