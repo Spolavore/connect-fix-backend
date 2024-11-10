@@ -25,14 +25,16 @@ const login = async(email, senha, tipo) => {
         throw new Error("Senha incorreta");
     }
     else {
-        return criarUserToken(info);
+        const ehPrestador = tipo === 'prestador';
+        return criarUserToken(info,ehPrestador);
     }
 }
 
 
-const criarUserToken = (data) => {
+const criarUserToken = (data, ehPrestador) => {
     delete data.id
     delete data.senha
+    data.prestador = ehPrestador;
     const token = jwt.sign(data, 'secret', { expiresIn: '3h' })
     return token;
 }
