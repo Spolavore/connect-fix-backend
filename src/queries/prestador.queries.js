@@ -10,8 +10,6 @@ const criar = async (cpf, nome, email, senha, profissao, cep, cidade, estado) =>
     } catch (error) {
         throw new Error("Erro na Inserção")
     }
-    
-    
 }
 
 const buscar = async () => {
@@ -34,6 +32,17 @@ const buscarPorCPF = async (cpf) =>{
     return dbResponse.rows[0]
 }
 
-export default {
-    criar, buscar, buscarPorEmail,buscarPorCPF
+const buscarDatasOcupadas = async (id) => {
+    const query = `
+    SELECT agendamento.data, agendamento.periodo
+    FROM agendamento
+    JOIN servico s ON agendamento.servico_id = s.id
+    WHERE s.prestador_id = $1
+  `;
+
+    const params = [id];
+    const dbResponse = await db.query(query, params);
+    return dbResponse.rows;
 }
+
+export default { criar, buscar, buscarPorEmail, buscarPorCPF, buscarDatasOcupadas};

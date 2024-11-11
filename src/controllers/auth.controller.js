@@ -1,6 +1,7 @@
+import { createHash } from "crypto";
+
 import httpStatus from "../utils/constants.js";
 import authService from "../services/auth.service.js";
-import { createHash } from "crypto";
 
 const login = async (req, res) => {
     const { email, senha, prestador: ehPrestador } = req.body;
@@ -16,6 +17,4 @@ const login = async (req, res) => {
     }
 }
 
-export default { 
-    login
-}
+export default { login };

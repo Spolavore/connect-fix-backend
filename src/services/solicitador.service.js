@@ -1,6 +1,6 @@
-import { error } from "console";
-import queries from "../queries/solicitador.queries.js"
 import { createHash } from "crypto";
+
+import queries from "../queries/solicitador.queries.js"
 
 const criar = async (cpf, nome, email, senha) => {
     try {
@@ -9,7 +9,6 @@ const criar = async (cpf, nome, email, senha) => {
       } catch (err) {
         throw err;
     }
-    return;
 }
 
 const buscar = async () => {
@@ -18,7 +17,6 @@ const buscar = async () => {
       } catch (err) {
         console.error(err);
     }
-    return;
 }
 
 const buscarPorEmail = async (email) => {
@@ -27,7 +25,6 @@ const buscarPorEmail = async (email) => {
       } catch (err) {
         console.error(err);
     }
-    return;
 }
 const buscarPorCPF = async (cpf) => {
   try {
@@ -35,7 +32,6 @@ const buscarPorCPF = async (cpf) => {
     } catch (err) {
       console.error(err);
   }
-  return;
 }
 
-export default  { criar, buscar, buscarPorEmail, buscarPorCPF };
+export default { criar, buscar, buscarPorEmail, buscarPorCPF };
