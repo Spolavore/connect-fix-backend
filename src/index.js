@@ -8,6 +8,7 @@ import dotenv from 'dotenv'
 import prestador from './controllers/prestador.controller.js'
 import solicitador from "./controllers/solicitador.controller.js"
 import auth from './controllers/auth.controller.js'
+import agendamento from './controllers/agentamento.controller.js'
 
 dotenv.config()
 const app = express();
@@ -31,6 +32,10 @@ app.get('/solicitador/cpf/:cpf', solicitador.buscarPorCPF)
 
 // Login
 app.post('/login', auth.login)
+
+
+// Agendamento
+app.get('/agendamentosPendentes/:id_prestador', agendamento.buscarAgendamentosPendentes )
 
 app.listen(porta, () => {
     console.log(`Aplicação rodando na porta ${porta}`)
