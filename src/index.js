@@ -35,7 +35,8 @@ app.post('/login', auth.login)
 
 
 // Agendamento
-app.get('/agendamentosPendentes/:id_prestador', agendamento.buscarAgendamentosPendentes )
+app.get('/agendamentos/:id_prestador/:status?', agendamento.buscarAgendamentos )
+app.post('/atualizarStatusAgendamento', agendamento.atualizarStatus)
 
 app.listen(porta, () => {
     console.log(`Aplicação rodando na porta ${porta}`)
