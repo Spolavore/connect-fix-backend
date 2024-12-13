@@ -22,12 +22,14 @@ app.post('/prestador', prestador.criar)
 app.get('/prestador', prestador.buscar)
 app.get('/prestador/:email', prestador.buscarPorEmail)
 app.get('/prestador/cpf/:cpf', prestador.buscarPorCPF)
+app.post('/prestador/avaliar/:email/:avaliacao', prestador.avaliarSolicitador)
 
 // Solicitador
 app.post('/solicitador', solicitador.criar)
 app.get('/solicitador', solicitador.buscar)
 app.get('/solicitador/:email', solicitador.buscarPorEmail)
 app.get('/solicitador/cpf/:cpf', solicitador.buscarPorCPF)
+app.post('/solicitador/avaliar/:email/:avaliacao', solicitador.avaliarPrestador)
 
 // Login
 app.post('/login', auth.login)

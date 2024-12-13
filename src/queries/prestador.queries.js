@@ -10,8 +10,6 @@ const criar = async (cpf, nome, email, senha, profissao, cep, cidade, estado) =>
     } catch (error) {
         throw new Error("Erro na Inserção")
     }
-    
-    
 }
 
 const buscar = async () => {
@@ -34,6 +32,19 @@ const buscarPorCPF = async (cpf) =>{
     return dbResponse.rows[0]
 }
 
+
+const avaliarSolicitador = async (email, avaliacao) => {
+    console.log('teste')
+    const query = `UPDATE solicitador SET avaliacao=$2 WHERE email=$1`;    
+    const params = [email, avaliacao];
+    try {
+        const dbResponse = await db.query(query,params);
+        return dbResponse.rows[0];
+    } catch (error) {
+        throw new Error("Erro na Inserção da Avaliação")
+    }
+}
+
 export default {
-    criar, buscar, buscarPorEmail,buscarPorCPF
+    criar, buscar, buscarPorEmail, buscarPorCPF, avaliarSolicitador
 }
