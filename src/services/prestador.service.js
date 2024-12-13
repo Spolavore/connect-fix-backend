@@ -1,4 +1,5 @@
 import queries from "../queries/prestador.queries.js"
+import solicitadorService from "../services/solicitador.service.js";
 import { createHash } from "crypto";
 
 const criar = async (cpf, nome, email, senha, profissao, cep, cidade,estado) => {
@@ -35,5 +36,21 @@ const buscarPorCPF = async (cpf) => {
   }
   return;
 }
+const avaliarSolicitador = async (email, avaliacao) => {
+  try {
+    var avaliacaoFinal = 0;
+      var solicitador = await solicitadorService.buscarPorEmail(email);
+      if(solicitador.avaliacao == null){
+        avaliacaoFinal = (5 + parseFloat(avaliacao))/2
+      }
+      else{
+        avaliacaoFinal = (solicitador.avaliacao + parseFloat(avaliacao))/2
+      }
+      return await queries.avaliarSolicitador(email, avaliacaoFinal);
+    } catch (err) {
+      console.error(err);
+  }
+  return;
+}
 
-export default  { criar, buscar, buscarPorEmail,buscarPorCPF };
+export default  { criar, buscar, buscarPorEmail, buscarPorCPF, avaliarSolicitador };
