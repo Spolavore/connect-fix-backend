@@ -35,7 +35,7 @@ app.post('/login', auth.login)
 
 
 // Agendamento
-app.get('/agendamentos/:id_prestador/:status?', agendamento.buscarAgendamentos )
+app.get('/agendamentos/:id_usuario/:tipo_usuario/:status?', agendamento.buscarAgendamentos )
 app.post('/atualizarStatusAgendamento', agendamento.atualizarStatus)
 
 app.listen(porta, () => {

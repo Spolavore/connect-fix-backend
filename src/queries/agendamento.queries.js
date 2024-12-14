@@ -1,13 +1,15 @@
 import db from "../../database/connect.js";
 
-const buscarAgendamentos = async(idPrestador,status) => {
+const buscarAgendamentos = async(idUsuario,status, tipoUsuario) => {
     let query = `SELECT id_agendamento,dt_dia, dt_horario, status, descricao, titulo, dt_criacao, sl.nome as nome_solicitador,
-                pt.nome as nome_prestador FROM agendamento a
-                JOIN servico_solicitado s on (a.id_servico = s.id) 
+                pt.nome as nome_prestador, sl.email as email_solicitador, pt.email as email_prestador, confirmacao_prestador,
+                confirmacao_solicitador FROM agendamento a
+                JOIN servico s on (a.id_servico = s.id) 
                 JOIN solicitador sl on (a.id_solicitador = sl.id)
-                JOIN prestador pt on (a.id_prestador = pt.id)  WHERE id_prestador = $1`
+                JOIN prestador pt on (a.id_prestador = pt.id) WHERE `
 
-    let params = [idPrestador];
+    query += tipoUsuario == 'PRESTADOR' ? 'id_prestador = $1' : 'id_solicitador = $1';
+    let params = [idUsuario];
     if(status) {
         query += ' AND status= $2 ORDER BY dt_criacao DESC'
         params.push(status)
@@ -24,8 +26,16 @@ const buscarAgendamentos = async(idPrestador,status) => {
     }
 }
 
-const atualizarStatus = async(status, agendamento) => {
-    const query = `UPDATE agendamento set status = $1 where id_agendamento = $2`
+const atualizarStatus = async(status, agendamento, tipoUsuario) => {
+    let query = `UPDATE agendamento set status = $1`
+
+    if(status == 'EM CONFIRMACAO' || status == 'CONCLUIDO'){
+        query += tipoUsuario == 'PRESTADOR' ? ', confirmacao_prestador = true' : ', confirmacao_prestador = true';
+    }
+    
+    query += ' where id_agendamento = $2'
+    
+        
     const params = [status, agendamento]
 
     try {

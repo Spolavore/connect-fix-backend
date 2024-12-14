@@ -1,8 +1,8 @@
 import queriesAgendamento from '../queries/agendamento.queries.js'
 
-const buscarAgendamentos = async (idPrestador, status) => {
+const buscarAgendamentos = async (idPrestador, status, tipoUsuario) => {
     try {
-        const agendamentosPendentes = await queriesAgendamento.buscarAgendamentos(idPrestador, status);
+        const agendamentosPendentes = await queriesAgendamento.buscarAgendamentos(idPrestador, status, tipoUsuario);
         return agendamentosPendentes;
     } catch (error) {
         console.error(error);
@@ -12,8 +12,8 @@ const buscarAgendamentos = async (idPrestador, status) => {
 
 
 
-const atualizarStatus = async (status, agendamento) => {
-    const statusAgendamentoPossiveis = ['PENDENTE', 'EM ANDAMENTO', 'EM CONFIRMACAO', 'CONCLUIDO', 'RECUSADO'];
+const atualizarStatus = async (status, agendamento, tipoUsuario) => {
+    const statusAgendamentoPossiveis = ['PENDENTE', 'EM ANDAMENTO', 'EM CONFIRMACAO', 'CONCLUIDO', 'RECUSADO', 'CANCELADO'];
     if(!statusAgendamentoPossiveis.some( s => s == status)){
          throw new Error ('Status fornecido não reconhecido')
     }
