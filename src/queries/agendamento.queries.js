@@ -17,6 +17,8 @@ const buscarAgendamentos = async(idUsuario,status, tipoUsuario) => {
     else {
         query += ' ORDER BY dt_criacao DESC'
     }
+    console.log(query, tipoUsuario)
+
     try {
         const dbResponse = await db.query(query,params);
         return dbResponse.rows;

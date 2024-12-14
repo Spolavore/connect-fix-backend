@@ -1,6 +1,6 @@
 import httpStatus from "../utils/constants.js";
-
 import agendamentoService from "../services/agendamento.service.js";
+
 
 const buscarAgendamentos = async (req,res) => {
     const idUsuario = req.params.id_usuario
@@ -35,7 +35,29 @@ const atualizarStatus = async (req, res) => {
     }
 }
 
+const baixarCertificado = async (req, res) => {
+    const userInfo = req.body.userInfo;
+
+    try {
+        // Gera o PDF
+        const filePath = await agendamentoService.gerarPDF(userInfo);
+
+        // Serve o PDF para o front-end
+        console.log('Servindo o arquivo para o front-end...');
+        res.download(filePath, 'certificado_conclusao.pdf', (err) => {
+            if (err) {
+                console.error('Erro ao enviar o PDF:', err);
+                return res.status(500).send('Erro ao baixar o certificado.');
+            }
+        });
+    } catch (error) {
+        console.error('Erro ao gerar ou enviar o certificado:', error);
+        res.status(500).send('Erro ao gerar o certificado.');
+    }
+};
+
 export default {
     buscarAgendamentos,
-    atualizarStatus
+    atualizarStatus,
+    baixarCertificado
 }
