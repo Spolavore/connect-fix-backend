@@ -1,5 +1,6 @@
 import httpStatus from "../utils/constants.js";
 import agendamentoService from "../services/agendamento.service.js";
+import servicoService from "../services/servico.service.js";
 
 
 const buscarAgendamentos = async (req,res) => {
@@ -29,7 +30,7 @@ const atualizarStatus = async (req, res) => {
 
     try {
         await agendamentoService.atualizarStatus(status , idAgendamento, tipoUsuario);
-        res.status(httpStatus.SUCCESS).send();
+        return res.status(httpStatus.SUCCESS).send();
     } catch (error) {
         console.error(error)
         return res.status(httpStatus.BAD_REQUEST).send(error);
@@ -77,9 +78,30 @@ const realizarAgendamento = async(req, res) => {
     }
 }
 
+const requerirAgendamento = async (req,res) => {
+    const tituloServico = req.body.titulo;
+    const descricao = req.body.descricao;
+    const idPrestador = req.body.id_prestador;
+    const idSolicitador = req.body.id_solicitador;
+    const criadoPor = req.body.criar_por;
+    const dia = req.body.dia;
+    const horario = req.body.horario;
+    console.log(req.body)
+    try {
+        console.log(tituloServico)
+        const servicoInfo = await servicoService.criar(tituloServico, descricao, idPrestador, criadoPor);
+        await agendamentoService.realizarAgendamento(servicoInfo.id, idPrestador, idSolicitador, dia, horario, 'PENDENTE');
+        return res.status(httpStatus.SUCCESS).send();
+    } catch (error) {
+        console.error(error);
+        return res.status(httpStatus.INTERNAL_ERROR).send('Erro ao requerir agendamento.');
+    }
+}
+
 export default {
     buscarAgendamentos,
     atualizarStatus,
     baixarCertificado,
-    realizarAgendamento
+    realizarAgendamento,
+    requerirAgendamento
 }

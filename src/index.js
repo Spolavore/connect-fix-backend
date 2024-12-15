@@ -48,7 +48,7 @@ app.get('/agendamentos/:id_usuario/:tipo_usuario/:status?', agendamento.buscarAg
 app.post('/atualizarStatusAgendamento', agendamento.atualizarStatus)
 app.post('/realizarAgendamento', agendamento.realizarAgendamento)
 app.post('/baixarCertificado', agendamento.baixarCertificado)
-
+app.post('/requerirAgendamento', agendamento.requerirAgendamento)
 
 app.listen(porta, () => {
     console.log(`Aplicação rodando na porta ${porta}`)
