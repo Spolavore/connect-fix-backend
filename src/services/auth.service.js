@@ -32,7 +32,6 @@ const login = async(email, senha, tipo) => {
 
 
 const criarUserToken = (data, ehPrestador) => {
-    delete data.id
     delete data.senha
     data.prestador = ehPrestador;
     const token = jwt.sign(data, 'secret', { expiresIn: '3h' })
