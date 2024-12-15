@@ -25,7 +25,8 @@ const atualizarStatus = async (req, res) => {
     const idAgendamento = req.body.idAgendamento;
     const tipoUsuario = req.body.tipoUsuario.toUpperCase();
 
-    if(tipoUsuario != 'PRESTADOR' && tipoUsuario != 'SOLICITADOR')  return res.status(httpStatus.BAD_REQUEST).send();
+    if(tipoUsuario != 'PRESTADOR' && tipoUsuario != 'SOLICITADOR' || !idAgendamento)  return res.status(httpStatus.BAD_REQUEST).send();
+
     try {
         await agendamentoService.atualizarStatus(status , idAgendamento, tipoUsuario);
         res.status(httpStatus.SUCCESS).send();
@@ -47,17 +48,38 @@ const baixarCertificado = async (req, res) => {
         res.download(filePath, 'certificado_conclusao.pdf', (err) => {
             if (err) {
                 console.error('Erro ao enviar o PDF:', err);
-                return res.status(500).send('Erro ao baixar o certificado.');
+                return res.status(httpStatus.INTERNAL_ERROR).send('Erro ao baixar o certificado.');
             }
         });
     } catch (error) {
         console.error('Erro ao gerar ou enviar o certificado:', error);
-        res.status(500).send('Erro ao gerar o certificado.');
+        res.status(httpStatus.INTERNAL_ERROR).send('Erro ao gerar o certificado.');
     }
 };
+
+const realizarAgendamento = async(req, res) => {
+
+    const idServico = req.body.id_servico;
+    const idPrestador = req.body.id_prestador;
+    const idSolicitador = req.body.id_solicitador;
+    const dia = req.body.dia;
+    const horario = req.body.horario;
+    const status = 'PENDENTE'
+
+    if(!idServico || !idPrestador || !idSolicitador || !dia || !horario) return res.status(httpStatus.BAD_REQUEST).send('Falta de parametros');
+    try {
+        await agendamentoService.realizarAgendamento(idServico, idPrestador, idSolicitador, dia, horario, status);
+        return res.status(httpStatus.SUCCESS).send();
+    } catch (error) {
+        console.error(error);
+        return res.status(httpStatus.INTERNAL_ERROR).send('Erro ao realizar agendamento.');
+        
+    }
+}
 
 export default {
     buscarAgendamentos,
     atualizarStatus,
-    baixarCertificado
+    baixarCertificado,
+    realizarAgendamento
 }

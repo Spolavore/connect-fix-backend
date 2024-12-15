@@ -17,10 +17,10 @@ const criar = async (req, res) => {
         const titulo = req.body.titulo;
         const descricao = req.body.descricao;
         const idPrestador = req.body.idPrestador;
+        const criadoPor = req.body.criado_por;
+        if(!titulo || !descricao || !idPrestador || !criadoPor) res.status(httpStatus.BAD_REQUEST).send('Falta de parametros');
 
-        if(!titulo || !descricao || !idPrestador) res.status(httpStatus.BAD_REQUEST).send('Falta de parametros');
-
-        await servicoService.criar(titulo, descricao, idPrestador);
+        await servicoService.criar(titulo, descricao, idPrestador, criadoPor);
         return res.status(httpStatus.SUCCESS).send();
 
     } catch (error) {

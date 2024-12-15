@@ -93,8 +93,19 @@ const gerarPDF = (userInfo) => {
     });
 };
 
+const realizarAgendamento = async(idServico, idPrestador, idSolicitador, dia, horario, status) => {
+    try {
+        await queriesAgendamento.realizarAgendamento(idServico, idPrestador, idSolicitador, dia, horario, status);
+    } catch (error) {
+        console.error(error);
+        throw new Error(error.message);
+
+    }
+}
+
 export default {
     buscarAgendamentos,
     atualizarStatus,
-    gerarPDF
+    gerarPDF,
+    realizarAgendamento
 }

@@ -8,9 +8,9 @@ const buscar = async (idPrestador) => {
     return;
 }
 
-const criar = async (titulo, descricao, idPrestador) => {
+const criar = async (titulo, descricao, idPrestador, criadoPor) => {
   try {
-    return await queries.criar(titulo, descricao, idPrestador)
+    return await queries.criar(titulo, descricao, idPrestador, criadoPor)
   } catch (error) {
     console.error(error);
   }

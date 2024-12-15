@@ -28,6 +28,7 @@ const buscarAgendamentos = async(idUsuario,status, tipoUsuario) => {
 }
 
 const atualizarStatus = async(status, agendamento, tipoUsuario) => {
+    console.log(agendamento)
     let query = `UPDATE agendamento set status = $1`
 
     if(status == 'EM CONFIRMACAO' || status == 'CONCLUIDO'){
@@ -48,8 +49,21 @@ const atualizarStatus = async(status, agendamento, tipoUsuario) => {
     }
 
 }
+const realizarAgendamento = async(idServico, idPrestador, idSolicitador, dia, horario, status) => {
+    try {
+        const query = `INSERT INTO agendamento (id_servico, id_prestador, id_solicitador, dt_dia, dt_horario, dt_criacao, status)
+                       values ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, $6);
+        `
+        const params = [idServico, idPrestador, idSolicitador, dia, horario, status]
+        await db.query(query, params);
+    } catch (error) {
+        console.error(error);
+        throw new Error(error.message);
 
+    }
+};
 export default {
     buscarAgendamentos,
-    atualizarStatus
+    atualizarStatus,
+    realizarAgendamento
 }
