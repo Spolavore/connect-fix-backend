@@ -8,7 +8,9 @@ import dotenv from 'dotenv'
 import prestador from './controllers/prestador.controller.js'
 import solicitador from "./controllers/solicitador.controller.js"
 import auth from './controllers/auth.controller.js'
+import servico from "./controllers/servico.controller.js"
 import agendamento from './controllers/agentamento.controller.js'
+
 
 dotenv.config()
 const app = express();
@@ -23,12 +25,17 @@ app.post('/prestador', prestador.criar)
 app.get('/prestador', prestador.buscar)
 app.get('/prestador/:email', prestador.buscarPorEmail)
 app.get('/prestador/cpf/:cpf', prestador.buscarPorCPF)
+app.post('/prestador/avaliar/:email/:avaliacao', prestador.avaliarSolicitador)
 
 // Solicitador
 app.post('/solicitador', solicitador.criar)
 app.get('/solicitador', solicitador.buscar)
 app.get('/solicitador/:email', solicitador.buscarPorEmail)
 app.get('/solicitador/cpf/:cpf', solicitador.buscarPorCPF)
+app.post('/solicitador/avaliar/:email/:avaliacao', solicitador.avaliarPrestador)
+
+// Serviços
+app.get('/servico/:id_prestador?', servico.buscar)
 
 // Login
 app.post('/login', auth.login)

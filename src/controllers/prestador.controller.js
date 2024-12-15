@@ -54,10 +54,22 @@ const buscarPorCPF = async (req, res) => {
         return res.sendStatus(httpStatus.BAD_REQUEST);
     }
 }
+const avaliarSolicitador = async (req, res) => {
+    try {
+        const email = req.params.email
+        const avaliacao = req.params.avaliacao
+        await prestadorService.avaliarSolicitador(email, avaliacao);
+        return res.sendStatus(httpStatus.SUCCESS);
+    } catch (error) {
+        console.error(error);
+        return res.sendStatus(httpStatus.BAD_REQUEST);
+    }
+}
 
 export default{
     criar,
     buscar, 
     buscarPorEmail,
-    buscarPorCPF
+    buscarPorCPF,
+    avaliarSolicitador
 }

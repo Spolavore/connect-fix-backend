@@ -35,31 +35,101 @@
 			"response": []
 		},
 		{
-			"name": "Buscar Usuários",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "Avaliar Solicitador",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "http://localhost:6969/user",
+					"raw": "http://localhost:6969/prestador/avaliar/leo@leo.com/4",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "6969",
 					"path": [
-						"user"
+						"prestador",
+						"avaliar",
+						"leo@leo.com",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Avaliar Prestador",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6969/solicitador/avaliar/teste@ignacio.com/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"solicitador",
+						"avaliar",
+						"teste@ignacio.com",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Prestadores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6969/prestador",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"prestador"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Solicitadores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6969/solicitador",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"solicitador"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Serviços",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6969/servico",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"servico"
 					]
 				}
 			},
