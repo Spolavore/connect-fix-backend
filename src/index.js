@@ -36,6 +36,8 @@ app.post('/solicitador/avaliar/:email/:avaliacao', solicitador.avaliarPrestador)
 
 // Serviços
 app.get('/servico/:id_prestador?', servico.buscar)
+app.post('/servico', servico.criar)
+
 
 // Login
 app.post('/login', auth.login)
