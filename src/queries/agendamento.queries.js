@@ -28,7 +28,6 @@ const buscarAgendamentos = async(idUsuario,status, tipoUsuario) => {
 }
 
 const atualizarStatus = async(status, agendamento, tipoUsuario) => {
-    console.log(agendamento)
     let query = `UPDATE agendamento set status = $1`
 
     if(status == 'EM CONFIRMACAO' || status == 'CONCLUIDO'){
@@ -37,7 +36,6 @@ const atualizarStatus = async(status, agendamento, tipoUsuario) => {
     
     query += ' where id_agendamento = $2'
     
-        
     const params = [status, agendamento]
 
     try {
