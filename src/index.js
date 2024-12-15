@@ -33,7 +33,7 @@ app.get('/solicitador/cpf/:cpf', solicitador.buscarPorCPF)
 app.post('/solicitador/avaliar/:email/:avaliacao', solicitador.avaliarPrestador)
 
 // Serviços
-app.get('/servico', servico.buscar)
+app.get('/servico/:id_prestador?', servico.buscar)
 
 // Login
 app.post('/login', auth.login)

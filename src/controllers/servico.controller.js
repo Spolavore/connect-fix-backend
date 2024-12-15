@@ -3,7 +3,8 @@ import httpStatus from "../utils/constants.js";
 
 const buscar = async (req, res) => {
     try {
-        const servico = await servicoService.buscar();
+        const idPrestador = req.params.id_prestador;
+        const servico = await servicoService.buscar(idPrestador);
         return res.send(servico).status(httpStatus.SUCCESS);
     } catch (error) {
         console.error(error);

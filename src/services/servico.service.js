@@ -1,7 +1,7 @@
 import queries from "../queries/servico.queries.js"
-const buscar = async () => {
+const buscar = async (idPrestador) => {
     try {
-        return await queries.buscar();
+        return await queries.buscar(idPrestador);
       } catch (err) {
         console.error(err);
     }
