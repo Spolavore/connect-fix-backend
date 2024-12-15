@@ -25,7 +25,6 @@ const atualizarStatus = async (req, res) => {
     const status = req.body.status;
     const idAgendamento = req.body.idAgendamento;
     const tipoUsuario = req.body.tipoUsuario.toUpperCase();
-
     if(tipoUsuario != 'PRESTADOR' && tipoUsuario != 'SOLICITADOR' || !idAgendamento)  return res.status(httpStatus.BAD_REQUEST).send();
 
     try {
@@ -86,9 +85,7 @@ const requerirAgendamento = async (req,res) => {
     const criadoPor = req.body.criar_por;
     const dia = req.body.dia;
     const horario = req.body.horario;
-    console.log(req.body)
     try {
-        console.log(tituloServico)
         const servicoInfo = await servicoService.criar(tituloServico, descricao, idPrestador, criadoPor);
         await agendamentoService.realizarAgendamento(servicoInfo.id, idPrestador, idSolicitador, dia, horario, 'PENDENTE');
         return res.status(httpStatus.SUCCESS).send();

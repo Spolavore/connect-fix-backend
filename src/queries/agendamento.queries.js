@@ -32,7 +32,7 @@ const atualizarStatus = async(status, agendamento, tipoUsuario) => {
     let query = `UPDATE agendamento set status = $1`
 
     if(status == 'EM CONFIRMACAO' || status == 'CONCLUIDO'){
-        query += tipoUsuario == 'PRESTADOR' ? ', confirmacao_prestador = true' : ', confirmacao_prestador = true';
+        query += tipoUsuario == 'PRESTADOR' ? ', confirmacao_prestador = true' :  ', confirmacao_prestador = true';
     }
     
     query += ' where id_agendamento = $2'
