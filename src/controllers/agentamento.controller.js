@@ -82,11 +82,10 @@ const requerirAgendamento = async (req,res) => {
     const descricao = req.body.descricao;
     const idPrestador = req.body.id_prestador;
     const idSolicitador = req.body.id_solicitador;
-    const criadoPor = req.body.criar_por;
     const dia = req.body.dia;
     const horario = req.body.horario;
     try {
-        const servicoInfo = await servicoService.criar(tituloServico, descricao, idPrestador, criadoPor);
+        const servicoInfo = await servicoService.criar(tituloServico, descricao, idPrestador, 'SOLICITADOR');
         await agendamentoService.realizarAgendamento(servicoInfo.id, idPrestador, idSolicitador, dia, horario, 'PENDENTE');
         return res.status(httpStatus.SUCCESS).send();
     } catch (error) {
