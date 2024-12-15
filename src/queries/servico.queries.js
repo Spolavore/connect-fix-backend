@@ -5,6 +5,7 @@ const buscar = async (idPrestador) => {
                 from servico s join prestador p on (s.id_prestador = p.id)
                 `;    
     idPrestador != null ? query += ` where id_prestador = ${idPrestador} and criado_por = 'PRESTADOR'` : '';
+    query += ' order by s.id desc'
     const dbResponse = await db.query(query);
     return dbResponse.rows;
 }
