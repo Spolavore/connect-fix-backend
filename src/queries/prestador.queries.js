@@ -8,6 +8,7 @@ const criar = async (cpf, nome, email, senha, profissao, cep, cidade, estado) =>
         const dbResponse = await db.query(query,params);
         return dbResponse.rows[0];
     } catch (error) {
+        console.error(error)
         throw new Error("Erro na Inserção")
     }
 }
