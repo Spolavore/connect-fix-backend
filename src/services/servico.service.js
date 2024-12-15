@@ -8,4 +8,12 @@ const buscar = async (idPrestador) => {
     return;
 }
 
-export default  { buscar };
+const criar = async (titulo, descricao, idPrestador) => {
+  try {
+    return await queries.criar(titulo, descricao, idPrestador)
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export default  { buscar, criar };

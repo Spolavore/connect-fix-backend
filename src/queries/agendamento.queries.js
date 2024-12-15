@@ -8,7 +8,7 @@ const buscarAgendamentos = async(idUsuario,status, tipoUsuario) => {
                 JOIN solicitador sl on (a.id_solicitador = sl.id)
                 JOIN prestador pt on (a.id_prestador = pt.id) WHERE `
 
-    query += tipoUsuario == 'PRESTADOR' ? 'id_prestador = $1' : 'id_solicitador = $1';
+    query += tipoUsuario == 'PRESTADOR' ? 'a.id_prestador = $1' : 'a.id_solicitador = $1';
     let params = [idUsuario];
     if(status) {
         query += ' AND status= $2 ORDER BY dt_criacao DESC'
@@ -17,7 +17,6 @@ const buscarAgendamentos = async(idUsuario,status, tipoUsuario) => {
     else {
         query += ' ORDER BY dt_criacao DESC'
     }
-    console.log(query, tipoUsuario)
 
     try {
         const dbResponse = await db.query(query,params);
