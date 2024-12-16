@@ -12,6 +12,16 @@ const buscarAgendamentos = async (idPrestador, status, tipoUsuario) => {
     }
 }
 
+const buscarAgendamento = async (idAgendamento) => {
+    try {
+        const agendamento = await queriesAgendamento.buscarAgendamento(idAgendamento);
+        return agendamento;
+    } catch (error) {
+        console.error(error);
+        throw new Error (error.message);
+    }
+}
+
 
 
 const atualizarStatus = async (status, agendamento, tipoUsuario) => {
@@ -20,6 +30,10 @@ const atualizarStatus = async (status, agendamento, tipoUsuario) => {
          throw new Error ('Status fornecido não reconhecido')
     }
     try {
+        const agendamentoSolicitado = await buscarAgendamento(agendamento);
+        if(agendamentoSolicitado.status == 'EM CONFIRMACAO'){
+            status = 'CONCLUIDO'
+        }
         await queriesAgendamento.atualizarStatus(status, agendamento, tipoUsuario);
     } catch (error) {
         console.error(error);
@@ -105,6 +119,7 @@ const realizarAgendamento = async(idServico, idPrestador, idSolicitador, dia, ho
 
 export default {
     buscarAgendamentos,
+    buscarAgendamento,
     atualizarStatus,
     gerarPDF,
     realizarAgendamento

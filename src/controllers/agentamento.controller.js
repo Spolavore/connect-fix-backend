@@ -21,6 +21,21 @@ const buscarAgendamentos = async (req,res) => {
     }
 }
 
+const buscarAgendamento = async (req,res) => {
+    const idAgendamento = req.params.id_agendamento
+
+    if(!idAgendamento)  return res.status(httpStatus.BAD_REQUEST).send();
+
+    try {
+        const agendamento = await agendamentoService.buscarAgendamento(idAgendamentoo);
+        return res.status(httpStatus.SUCCESS).send(agendamento);
+
+    } catch (error) {
+        console.error(error)
+        return res.status(httpStatus.INTERNAL_ERROR).send();
+    }
+}
+
 const atualizarStatus = async (req, res) => {
     const status = req.body.status;
     const idAgendamento = req.body.idAgendamento;
@@ -96,6 +111,7 @@ const requerirAgendamento = async (req,res) => {
 
 export default {
     buscarAgendamentos,
+    buscarAgendamento,
     atualizarStatus,
     baixarCertificado,
     realizarAgendamento,

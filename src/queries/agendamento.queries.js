@@ -27,6 +27,21 @@ const buscarAgendamentos = async(idUsuario,status, tipoUsuario) => {
     }
 }
 
+const buscarAgendamento = async(idAgendamento) => {
+    let query = `SELECT * from agendamento where id_agendamento = $1 `
+
+    let params = [idAgendamento];
+
+    try {
+        const dbResponse = await db.query(query,params);
+        return dbResponse.rows[0];
+    } catch (error) {
+        console.error(error);
+        throw new Error(error.message);
+    }
+}
+
+
 const atualizarStatus = async(status, agendamento, tipoUsuario) => {
     let query = `UPDATE agendamento set status = $1`
 
@@ -62,6 +77,7 @@ const realizarAgendamento = async(idServico, idPrestador, idSolicitador, dia, ho
 };
 export default {
     buscarAgendamentos,
+    buscarAgendamento,
     atualizarStatus,
     realizarAgendamento
 }
