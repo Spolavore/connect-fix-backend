@@ -20,6 +20,15 @@ const buscar = async () => {
     return;
 }
 
+const buscarPorId = async (id) => {
+  try {
+      return await queries.buscarPorId(id);
+    } catch (err) {
+      console.error(err);
+  }
+  return;
+}
+
 const buscarPorEmail = async (email) => {
     try {
         return await queries.buscarPorEmail(email);
@@ -53,4 +62,4 @@ const avaliarSolicitador = async (email, avaliacao) => {
   return;
 }
 
-export default  { criar, buscar, buscarPorEmail, buscarPorCPF, avaliarSolicitador };
+export default  { criar, buscar, buscarPorEmail, buscarPorCPF, avaliarSolicitador, buscarPorId };

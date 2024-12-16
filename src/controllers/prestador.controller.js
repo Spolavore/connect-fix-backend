@@ -34,6 +34,17 @@ const buscar = async (req, res) => {
     }
 }
 
+const buscarPorId = async (req, res) => {
+    try {
+        const id = req.params.id
+        const provedores = await prestadorService.buscarPorId(id);
+        return res.send(provedores).status(httpStatus.SUCCESS);
+    } catch (error) {
+        console.error(error);
+        return res.sendStatus(httpStatus.BAD_REQUEST);
+    }
+}
+
 const buscarPorEmail = async (req, res) => {
     try {
         const email = req.params.email
@@ -71,5 +82,6 @@ export default{
     buscar, 
     buscarPorEmail,
     buscarPorCPF,
-    avaliarSolicitador
+    avaliarSolicitador,
+    buscarPorId
 }

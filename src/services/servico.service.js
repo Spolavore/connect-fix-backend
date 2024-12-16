@@ -1,7 +1,11 @@
 import queries from "../queries/servico.queries.js"
+import prestadorService from "../services/prestador.service.js";
 const buscar = async (idPrestador) => {
     try {
-        return await queries.buscar(idPrestador);
+      let prestador = await queries.buscar(idPrestador)
+      let nomePrestador = await prestadorService.buscarPorId(idPrestador);
+      prestador.nome = nomePrestador;
+      return prestador;
       } catch (err) {
         console.error(err);
     }

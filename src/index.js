@@ -23,6 +23,7 @@ app.use(morgan('dev'));
 // Prestador
 app.post('/prestador', prestador.criar)
 app.get('/prestador', prestador.buscar)
+app.get('/prestador/:id', prestador.buscarPorId)
 app.get('/prestador/:email', prestador.buscarPorEmail)
 app.get('/prestador/cpf/:cpf', prestador.buscarPorCPF)
 app.post('/prestador/avaliar/:email/:avaliacao', prestador.avaliarSolicitador)
