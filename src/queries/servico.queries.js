@@ -2,10 +2,11 @@ import db from "../../database/connect.js";
 
 const buscar = async (idPrestador) => {
     let query = `select s.id as id_servico, s.id_prestador, titulo, descricao, nome, email, profissao, avaliacao 
-                from servico s join prestador p on (s.id_prestador = p.id)
+                from servico s join prestador p on (s.id_prestador = p.id) 
                 `;    
-    idPrestador != null ? query += ` where id_prestador = ${idPrestador} and criado_por = 'PRESTADOR'` : '';
+    idPrestador != null ? query += ` where id_prestador = ${idPrestador} and criado_por = 'PRESTADOR'` : query += ` where criado_por = 'PRESTADOR'`;
     query += ' order by s.id desc'
+    console.log(query)
     const dbResponse = await db.query(query);
     return dbResponse.rows;
 }
